@@ -1,0 +1,9 @@
+<div class="row justify-content-md-center">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="btn btn-secondary {% if stat_author_nav %}active{% endif %}" href="{% url 'stat_author' %}">Авторы</a>
+        <a class="btn btn-secondary {% if stat_group_nav %}active{% endif %}" href="{% url 'stat_group' %}">Группы</a>
+        <a class="btn btn-secondary {% if stat_view_nav %}active{% endif %}" href="{% url 'stat_view' %}">Просмотры</a>
+        <a class="btn btn-secondary {% if stat_follow_nav %}active{% endif %}"
+            href="{% url 'stat_follow' %}">Подписчики</a>
+    </div>
+</div>

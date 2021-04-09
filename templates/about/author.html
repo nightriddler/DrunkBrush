@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Об авторе проекта{% endblock %}
+{% block header %}<h1 class="display-4">Об авторе проекта</h1>{% endblock %}
+{% block content %}
+{% load user_filters %}
+
+{% include "include/author_card.html" %}
+
+<!-- Тело страницы -->
+<div class="col-md-9">
+  <div class="card-body">
+    <div class="card-text">
+      <p>Студент Яндекс.Практикума 14 когорты бэкэнд питона.
+        Я на <a href="https://github.com/nightriddler?tab=repositories">GitHub</a>
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+</main>
+
+{% endblock %}

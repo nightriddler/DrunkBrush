@@ -1,0 +1,10 @@
+{% if user.is_authenticated %}
+<div class="row justify-content-md-center">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="btn btn-secondary {% if all_author %}active{% endif %}" href="{% url 'index' %}">Все
+            авторы</a>
+        <a class="btn btn-secondary  {% if follow %}active{% endif %}" href="{% url 'follow_index' %}">Избранные
+            авторы</a>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,12 @@
+<div class="jumbotron container-fluid">
+    <div class="container">
+        <a class="display-4" href="{% url 'page_group' group.slug %}">{{ group.title }}</a>
+        <p class="lead">{{ group.description }}</br></br>
+            Количество постов - <span class="badge badge-primary badge-pill">{{group.posts.count}}</span></p>
+        {% if user.is_authenticated %}
+        <p class="lead">
+            <a class="btn btn-primary" href="{% url 'group_edit' group.slug %}" role="button">Изменить группу</a>
+        </p>
+        {%endif%}
+    </div>
+</div>

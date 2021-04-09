@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}
+{% if stat_view_nav %}Статистика просмотров
+{% elif stat_group_nav %}Статистика групп
+{% elif stat_author_nav %}Статистика авторов
+{% elif stat_follow_nav %}Статистика подписчиков
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% include "include/menu_stat.html" %}
+    <h1 class="display-4">
+        {% if stat_view_nav %}Просмотры
+        {% elif stat_group_nav %}Группы
+        {% elif stat_author_nav %}Авторы
+        {% elif stat_follow_nav %}Подписчики
+        {% endif %}
+    </h1>
+    <div id="container" style="width: 100%;">
+        <canvas id="myChart" width="400" height="200"></canvas>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: {% if stat_view_nav %}'radar' 
+                        {% elif stat_group_nav %}'bar' 
+                        {% elif stat_author_nav %}'bar'  
+                        {% elif stat_follow_nav %}'bar' 
+                        {% endif %} 
+                ,
+                data: {
+                    labels: {{labels | safe}},
+                    datasets: [{
+                        label: {% if stat_view_nav %}'Сумма просмотров всех постов' 
+                        {% elif stat_group_nav %}'Количество постов в группе' 
+                        {% elif stat_author_nav %}'Количество постов автора'  
+                        {% elif stat_follow_nav %}'Количество подписчиков' 
+                        {% endif %},
+                        data: {{data | safe}},
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            display: true,
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+    </div>
+</div>
+
+{% endblock %}

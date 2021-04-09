@@ -1,0 +1,10 @@
+<div class="row justify-content-md-center">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="btn btn-secondary {% if best_views %}active{% endif %}" href="{% url 'best_views' %}">По
+            просмотрам</a>
+        <a class="btn btn-secondary {% if best_comment %}active{% endif %}" href="{% url 'best_comment' %}">По
+            комментариям</a>
+        <a class="btn btn-secondary {% if best_author %}active{% endif %}" href="{% url 'best_author' %}">По
+            автору</a>
+    </div>
+</div>

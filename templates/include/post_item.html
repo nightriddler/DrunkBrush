@@ -1,0 +1,61 @@
+<!-- Начало блока с отдельным постом -->
+<div class="card mb-3 mt-1 shadow-sm">
+    {% load thumbnail %}
+    {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+    <img class="card-img" src="{{ im.url }}">
+    {% endthumbnail %}
+
+    <div class="card-body">
+        <p class="card-text">
+            <!-- Ссылка на страницу автора в атрибуте href; username автора в тексте ссылки -->
+            <a href="{% url 'profile' post.author.username %}"><strong
+                    class="d-block text-gray-dark">@{{ post.author }}</strong></a>
+            <!-- Текст поста -->
+            {% if query %}
+            <p>{{ post.text|linebreaksbr|urlize  }}</p>
+
+            {% else %}
+            <p>{{ post.text|linebreaksbr|urlize }}</p>
+            {% endif %}
+        </p>
+        {% if post.group %}
+        <a class="card-link muted" href="{% url 'page_group' post.group.slug %}">
+            <strong class="d-block text-gray-dark">
+                <span class="badge badge-primary">
+                    {{ post.group.title }}
+                </span>
+            </strong>
+        </a>
+        {% endif %}
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group ">
+                <!-- Ссылка на страницу записи в атрибуте href-->
+                <a class="btn btn-sm text-muted">Просмотры: {{ post.views }}</a>
+                {% if post.comments.exists %}
+                <a class="btn btn-sm text-muted">Комментариев: {{ post.comments.count }}</a>
+                {% endif %}
+                {% if user.is_authenticated %}
+                {% if not comment %}
+                <a class="btn btn-sm text-muted" href="{% url 'add_comment' post.author.username post.pk %}"
+                    role="button">Добавить комментарий</a>
+                {% endif %}
+                {% endif %}
+
+                {% if not read_post %}
+                <a class="btn btn-sm text-muted" href="{% url 'post' post.author.username post.pk %}"
+                    role="button">Просмотр
+                    записи</a>
+                {% endif %}
+                <!-- Ссылка на редактирование, показывается только автору записи -->
+                {% if user.username == post.author.username %}
+                <a class="btn btn-sm text-muted" href="{% url 'post_edit' post.author.username post.pk %}"
+                    role="button">Редактировать</a>
+                {% endif %}
+            </div>
+            <!-- Дата публикации  -->
+            <small class="text-muted">{{ post.pub_date }}</small>
+        </div>
+    </div>
+</div>
+<!-- Конец блока с отдельным постом -->

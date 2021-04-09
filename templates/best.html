@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}
+{% if best_views %}
+Лучшее по просмотрам
+{% elif best_comment %}
+Лучшее по комментариям
+{% elif best_author %}
+Лучшее по автору
+{% endif %}
+{% endblock %}
+{% block content %}
+
+
+<div class="container">
+
+    {% include "include/menu_best.html" %}
+    {% if best_views %}
+    <h1 class="display-4">Самые читаемые посты</h1>
+    {% elif best_comment %}
+    <h1 class="display-4">Самые обсуждаемые посты</h1>
+    {% elif best_author %}
+    <h1 class="display-4">Посты самого популярного автора</h1>
+    {% endif %}
+
+    {% for post in page %}
+    {% include "include/post_item.html" with post=post %}
+    {% endfor %}
+
+
+    {% include "include/paginator.html" %}
+
+</div>
+{% endblock %}

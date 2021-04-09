@@ -1,0 +1,46 @@
+<nav class="navbar navbar-light" style="background-color: #FFFFFF;">
+
+    <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="/media/logo_frame.svg" width="100" height="70" alt="">
+        <img src="/media/logo_name_frame_only_text.svg" width="150" height="70" alt="">
+    </a>
+
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="btn btn-outline-primary {% if index %}active{% endif %}" href="{% url 'index' %}" type="submit">В
+            начало</a>
+        <a class="btn btn-outline-primary {% if total_group %}active{% endif %}" href="{% url 'all_group' %}"
+            type="submit">Группы</a>
+        <a class="btn btn-outline-primary  {% if best %}active{% endif %}" href="{% url 'best_views' %}"
+            type="submit">Популярное</a>
+        <a class="btn btn-outline-primary  {% if stat %}active{% endif %}" href="{% url 'stat_author' %}"
+            type="submit">Статистика</a>
+        {% if user.is_authenticated %}
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{ user.username }}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'new_post' %}">Новая запись</a>
+                <a class="dropdown-item" href="{% url 'new_group' %}">Новая группа</a>
+                <a class="dropdown-item" href="{% url 'profile' request.user %}">Профиль</a>
+                <a class="dropdown-item" href="{% url 'password_change' %}">Изменить пароль</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+            </div>
+            {% else %}
+            <a class="btn btn-outline-primary" href="{% url 'login' %}" role="button">Войти</a>
+            <a class="btn btn-outline-primary" href="{% url 'signup' %}" role="button">Регистрация</a>
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+    <form class="form-inline" action="{% url 'search' %}" method="GET">
+        <input class="form-control mr-sm-2" name='q' type='text' placeholder="Поиск по постам" aria-label="Search"
+            width="100" height="70">
+        <button class="btn btn-outline-primary" type="submit">Найти!</button>
+
+    </form>
+</nav>

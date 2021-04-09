@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Избранные авторы{% endblock %}
+{% block content %}
+
+{% include "include/menu.html" with follow=True %}
+<div class="container">
+    <h1 class="display-4">Избранные авторы</h1>
+    {% if page %}
+    {% for post in page %}
+    {% include "include/post_item.html" with post=post %}
+    {% endfor %}
+    {% else %}
+    <h1>Вы пока не на кого не подписаны</h1>
+    {%endif%}
+
+
+
+    {% include "include/paginator.html" %}
+</div>
+{% endblock %}
