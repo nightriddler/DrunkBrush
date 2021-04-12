@@ -298,9 +298,9 @@ def post_view(request, username, post_id):
             author__username=username, user=request.user)
     else:
         following: bool = False
-
-    post.views += 1
-    post.save(update_fields=['views'])
+    if not request.user == post.author:
+        post.views += 1
+        post.save(update_fields=['views'])
     return render(request, 'post.html', {
         'author': post.author,
         'post': post,
