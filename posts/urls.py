@@ -1,6 +1,7 @@
 from django.urls import path
 
 from . import views
+
 # from .views import SearchResultsView
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('group/<slug:slug>/', views.group_posts, name='page_group'),
     path('new_group/', views.new_group, name='new_group'),
     path('group/<slug:slug>/edit', views.group_edit, name='group_edit'),
+    path('group/<slug:slug>/delete', views.group_del, name='group_del'),
     path('new/', views.new_post, name='new_post'),
     path('follow/', views.follow_index, name='follow_index'),
     path(
@@ -47,6 +49,11 @@ urlpatterns = [
         '<str:username>/<int:post_id>/edit/',
         views.post_edit,
         name='post_edit'
+    ),
+    path(
+        '<str:username>/<int:post_id>/delete/',
+        views.post_del,
+        name='post_del'
     ),
     path(
         '<str:username>/<int:post_id>/comment/',

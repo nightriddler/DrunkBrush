@@ -1,0 +1,23 @@
+<!-- Модальное окно -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Удаление {% if modal_post_del%}
+                    записи{% elif modal_group_del %} группы{% endif %}</h4>
+            </div>
+            <div class="modal-body">
+                Вы точно хотите удалить{% if modal_post_del %} запись{% elif modal_group_del %} группу{% endif %}?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                {% if modal_post_del %} <a type="button" class="btn btn-primary"
+                    href="{% url 'post_del' post.author.username post.pk %}">Удалить запись</a>
+                {% elif modal_group_del %} <a type="button" class="btn btn-primary"
+                    href="{% url 'group_del' group.slug %}">Удалить группу</a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>

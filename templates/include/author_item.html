@@ -1,6 +1,8 @@
+{% load avatar_tags %}
 <div class="col-md-3 mb-3 mt-1">
   <div class="card">
     <div class="card-body">
+      {% avatar author.username 210 class="img-circle img-responsive" id="user_avatar" %}
       <div class="h2">
         <!-- Имя автора -->
         {{ author.get_full_name }}
@@ -9,6 +11,7 @@
         <!-- username автора -->
         @{{ author.username }}
       </div>
+
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
@@ -20,8 +23,9 @@
       <li class="list-group-item">
         <div class="h6 text-muted">
           <!-- Количество записей -->
-          Записей: {{ author.posts.count }}
+          Записей: {{ author.posts.count }} <br />
         </div>
+
       </li>
       {% if user.is_authenticated and author != request.user %}
       <li class="list-group-item">

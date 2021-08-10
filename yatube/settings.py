@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sorl.thumbnail',
     'debug_toolbar',
-
+    'avatar',
 ]
 
 MIDDLEWARE = [
@@ -154,3 +154,4 @@ CACHES = {
 }
 
 PAR_PAGE = 10
+AVATAR_AUTO_GENERATE_SIZES = (210,)

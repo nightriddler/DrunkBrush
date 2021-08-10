@@ -51,6 +51,31 @@
                 {% if user.username == post.author.username %}
                 <a class="btn btn-sm text-muted" href="{% url 'post_edit' post.author.username post.pk %}"
                     role="button">Редактировать</a>
+                <a class="btn btn-sm text-muted" href=# role="button" data-toggle="modal"
+                    data-target="#myModal{{post.pk}}">Удалить</a>
+
+                <!-- Модальное окно -->
+                <div class="modal fade" id="myModal{{post.pk}}" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">Удаление записи</h4>
+                            </div>
+                            <div class="modal-body">
+                                Вы точно хотите удалить запись?
+                            </div>
+                            <div class="modal-footer">
+                                <form method="POST" action=" {% url 'post_del' post.author.username post.pk %}">
+                                    {% csrf_token %}
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Отменить</button>
+                                    <button type="submit" class="btn btn-primary">Удалить</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
             </div>
             <!-- Дата публикации  -->

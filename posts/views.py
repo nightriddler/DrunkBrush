@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.db.models import Count, Q, Sum
 from django.shortcuts import get_object_or_404, redirect, render
-from django.db.models import Q, Count, Sum
 from yatube.settings import PAR_PAGE
 
-from .forms import CommentForm, PostForm, GroupForm
-from .models import Follow, Group, Post, User, Comment
+from .forms import CommentForm, GroupForm, PostForm
+from .models import Comment, Follow, Group, Post, User
 
 
 def index(request):
@@ -96,6 +96,16 @@ def group_edit(request, slug):
     )
 
 
+@login_required
+def group_del(request, slug):
+    """Удаление группы."""
+    if request.method != 'POST':
+        return redirect(group_list)
+    group = get_object_or_404(Group, slug=slug)
+    group.delete()
+    return redirect(group_list)
+
+
 def group_posts(request, slug):
     """Страница группы."""
     group = get_object_or_404(Group, slug=slug)
@@ -113,7 +123,6 @@ def group_posts(request, slug):
 
 def group_list(request):
     """Страница всех групп."""
-
     count_group = Post.objects.values(
         'group').order_by('-count').annotate(count=Count('group'))
     total_group = []
@@ -323,7 +332,7 @@ def new_post(request):
     post.author = request.user
     post.views += 1
     post.save()
-    return redirect('index')
+    return redirect(index)
 
 
 def post_edit(request, username, post_id):
@@ -345,6 +354,16 @@ def post_edit(request, username, post_id):
         }
         )
     return redirect(post_view, username, post_id)
+
+
+def post_del(request, username, post_id):
+    """Удаление поста."""
+    if request.method != 'POST':
+        return redirect(profile, username)
+    post = get_object_or_404(Post, author__username=username, id=post_id)
+    if request.user == post.author:
+        post.delete()
+        return redirect(profile, username)
 
 
 @login_required
